@@ -330,11 +330,7 @@ docker build -t workspace-mcp .
 docker run -p 8000:8000 \
   -e GOOGLE_OAUTH_CLIENT_ID="..." \
   -e GOOGLE_OAUTH_CLIENT_SECRET="..." \
-  workspace-mcp
-
-# With read-only mode or granular permissions
-docker run -p 8000:8000 -e TOOLS_READ_ONLY=true workspace-mcp
-docker run -p 8000:8000 -e TOOLS_PERMISSIONS="gmail:readonly drive:full" workspace-mcp
+  workspace-mcp --transport streamable-http
 ```
 
 ---
