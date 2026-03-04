@@ -39,7 +39,9 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
 # Set environment variables for Python startup args
 ENV TOOL_TIER=""
 ENV TOOLS=""
+ENV TOOLS_READ_ONLY=""
+ENV TOOLS_PERMISSIONS=""
 
 # Use entrypoint for the base command and CMD for args
 ENTRYPOINT ["/bin/sh", "-c"]
-CMD ["uv run main.py --transport streamable-http ${TOOL_TIER:+--tool-tier \"$TOOL_TIER\"} ${TOOLS:+--tools $TOOLS}"]
+CMD ["uv run main.py --transport streamable-http ${TOOL_TIER:+--tool-tier \"$TOOL_TIER\"} ${TOOLS:+--tools $TOOLS} ${TOOLS_READ_ONLY:+--read-only} ${TOOLS_PERMISSIONS:+--permissions $TOOLS_PERMISSIONS}"]
