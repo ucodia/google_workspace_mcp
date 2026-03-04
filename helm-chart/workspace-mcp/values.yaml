@@ -116,6 +116,16 @@ tools:
 # Leave empty to use default or tools.enabled configuration
 toolTier: ""
 
+# Read-only mode - disables tools requiring write permissions
+readOnly: false
+
+# Granular permissions - per-service permission levels
+# Format: ["gmail:readonly", "drive:full"]
+# Gmail levels: readonly, organize, drafts, send, full (cumulative)
+# Other services: readonly, full
+# Mutually exclusive with readOnly
+permissions: []
+
 # Single-user mode configuration
 singleUserMode: false
 

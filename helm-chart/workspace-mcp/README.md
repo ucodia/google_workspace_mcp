@@ -37,6 +37,8 @@ The following table lists the configurable parameters and their default values:
 | `secrets.googleOAuth.userEmail` | Default user email for single-user mode | `""` |
 | `singleUserMode` | Enable single-user mode | `false` |
 | `tools.enabled` | List of tools to enable | `[]` (all tools enabled) |
+| `readOnly` | Enable read-only mode (disables write tools) | `false` |
+| `permissions` | Granular per-service permission levels (e.g., `["gmail:readonly", "drive:full"]`) | `[]` |
 | `env.MCP_ENABLE_OAUTH21` | Enable OAuth 2.1 support | `"false"` |
 | `service.type` | Kubernetes service type | `ClusterIP` |
 | `service.port` | Service port | `8000` |
@@ -85,6 +87,24 @@ helm install workspace-mcp ./helm-chart/workspace-mcp \
   --set secrets.googleOAuth.clientSecret="your-secret" \
   --set singleUserMode=true \
   --set secrets.googleOAuth.userEmail="user@yourdomain.com"
+```
+
+### Read-only mode:
+
+```bash
+helm install workspace-mcp ./helm-chart/workspace-mcp \
+  --set secrets.googleOAuth.clientId="your-client-id" \
+  --set secrets.googleOAuth.clientSecret="your-secret" \
+  --set readOnly=true
+```
+
+### Granular permissions:
+
+```bash
+helm install workspace-mcp ./helm-chart/workspace-mcp \
+  --set secrets.googleOAuth.clientId="your-client-id" \
+  --set secrets.googleOAuth.clientSecret="your-secret" \
+  --set permissions="{gmail:readonly,drive:full}"
 ```
 
 ### Enable OAuth 2.1 for multi-user environments:

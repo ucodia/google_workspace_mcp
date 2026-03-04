@@ -90,6 +90,14 @@ spec:
             - name: TOOLS
               value: {{ .Values.tools.enabled | join " " | quote }}
             {{- end }}
+            {{- if .Values.readOnly }}
+            - name: TOOLS_READ_ONLY
+              value: "true"
+            {{- end }}
+            {{- if .Values.permissions }}
+            - name: TOOLS_PERMISSIONS
+              value: {{ .Values.permissions | join " " | quote }}
+            {{- end }}
             # Environment variables from values
             {{- range $key, $value := .Values.env }}
             - name: {{ $key }}
@@ -100,7 +108,7 @@ spec:
           {{- end }}
           {{- if not .Values.command.disableArgs }}
           args:
-            - "uv run main.py --transport streamable-http {{- if .Values.singleUserMode }} --single-user{{- end }} ${TOOL_TIER:+--tool-tier \"$TOOL_TIER\"} ${TOOLS:+--tools $TOOLS}"
+            - "uv run main.py --transport streamable-http {{- if .Values.singleUserMode }} --single-user{{- end }} ${TOOL_TIER:+--tool-tier \"$TOOL_TIER\"} ${TOOLS:+--tools $TOOLS} ${TOOLS_READ_ONLY:+--read-only} ${TOOLS_PERMISSIONS:+--permissions $TOOLS_PERMISSIONS}"
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

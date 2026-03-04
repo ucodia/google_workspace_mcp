@@ -592,6 +592,15 @@ docker run -p 8000:8000 -v $(pwd):/app \
 # With tool selection via environment variables
 docker run -e TOOL_TIER=core workspace-mcp
 docker run -e TOOLS="gmail drive calendar" workspace-mcp
+
+# Read-only mode via environment variable
+docker run -e TOOLS_READ_ONLY=true workspace-mcp
+
+# Granular permissions via environment variable
+docker run -e TOOLS_PERMISSIONS="gmail:readonly drive:full" workspace-mcp
+
+# Combine environment variables
+docker run -e TOOL_TIER=core -e TOOLS_READ_ONLY=true workspace-mcp
 ```
 
 **Available Services**: `gmail` • `drive` • `calendar` • `docs` • `sheets` • `forms` • `tasks` • `contacts` • `chat` • `search`
